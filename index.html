@@ -116,6 +116,8 @@
         cursor: pointer;
       }
 
+      a.source { opacity: 0.5; }
+
       hr {
         border-style: dashed;
       }
@@ -203,7 +205,9 @@
         const source = document.querySelector('.source')
         if (source.value === 'UNPUBLISHED') {
           window.alert('edit your SOURCE first, then click here to add it\'s URL')
+          source.style.opacity = 0.5
         } else {
+          source.style.opacity = 1
           const title = window.prompt('what\'s your source?')
           const url = window.prompt('link or it didn\'t happen.')
           if (url.indexOf('http') === 0) {
