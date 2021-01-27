@@ -242,7 +242,11 @@
       }
 
       function putData (data) {
-        if (data.url) document.querySelector('.source').setAttribute('href', data.url)
+        if (data.url) {
+          const source = document.querySelector('.source')
+          source.setAttribute('href', data.url)
+          source.style.opacity = 1
+        }
         if (data.source) document.querySelector('.source').textContent = data.source
         const d = [ 'date', 'claim', 'tags', 'title', 'author', 'source', 'tldr', 'reasons', 'verified' ]
         d.forEach(i => { if (data[i]) document.querySelector(`.${i}`).value = data[i] })
