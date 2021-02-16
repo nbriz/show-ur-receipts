@@ -177,6 +177,7 @@
     </section>
 
     <script src="js/qrcode.min.js"></script>
+    <script src="js/base64.min.js"></script>
     <script src="js/autosize.js"></script>
     <script src="js/FileUploader.js"></script>
     <script>
@@ -259,7 +260,8 @@
 
       function download () {
         const text = JSON.stringify(getData(), null, 2)
-        const b64 = window.btoa(text)
+        // const b64 = window.btoa(text)
+        const b64 = Base64.encode(text)
         const uri = `data:application/json;base64,${b64}`
         const a = document.createElement('a')
         const name = document.querySelector('.claim').value.replace(/ /g, '_')
@@ -271,7 +273,8 @@
 
       function upload (file) {
         const b64 = file.data.split('base64,')[1]
-        const text = window.atob(b64)
+        // const text = window.atob(b64)
+        const text = Base64.decode(b64)
         const data = JSON.parse(text)
         putData(data)
         autosize(document.querySelectorAll('textarea'))
@@ -279,7 +282,8 @@
 
       function encodeURL () {
         const text = JSON.stringify(getData())
-        const b64 = window.btoa(text)
+        // const b64 = window.btoa(text)
+        const b64 = Base64.encode(text)
         const uri = encodeURIComponent(b64)
         window.location.hash = `#data,${uri}`
         window.alert('The URL in your address bar has been updated to include your data. Copy+Paste to sahre it.')
@@ -289,7 +293,8 @@
         if (window.location.hash) {
           const uri = window.location.hash.split('#data,')[1]
           const b64 = decodeURIComponent(uri)
-          const text = window.atob(b64)
+          // const text = window.atob(b64)
+          const text = Base64.decode(b64)
           const data = JSON.parse(text)
           return data
         }
