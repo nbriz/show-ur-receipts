@@ -94,7 +94,7 @@ nav {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9999999;
+  z-index: 100;
 }
 
 nav > * {
@@ -190,7 +190,7 @@ hr {
   position: fixed;
   bottom: 0px;
   left: 0px;
-  z-index: 100;
+  z-index: 200;
   background: black;
   color: white;
   width: 100vw;

@@ -148,7 +148,7 @@ const infoTxt = document.querySelector('#info > span:nth-child(2)')
 
 function delayShowInfo (e) {
   if (showInfoTimer) clearTimeout(showInfoTimer)
-  showInfoTimer = setTimeout(() => showInfo(e), 1000)
+  showInfoTimer = setTimeout(() => showInfo(e), 500)
 }
 
 function showInfo (e) {
@@ -170,8 +170,6 @@ infoz.forEach(ele => {
   ele.addEventListener('focus', showInfo)
   ele.addEventListener('input', hideInfo)
 })
-
-
 
 window.addEventListener('load', setup)
 document.querySelector('#source').addEventListener('click', addSource)
