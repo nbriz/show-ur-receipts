@@ -4,327 +4,75 @@
     <meta charset="utf-8">
     <title>show ur receipts</title>
     <meta name="author" content="nick briz"/>
-    <style>
-      * { box-sizing: border-box; }
-
-      *::-moz-selection {
-        background-color: #000;
-        color: #fff;
-      }
-
-      *::selection {
-        background-color: #000;
-        color: #fff;
-      }
-
-      @font-face {
-        font-family: 'Inconsolata';
-        font-style: normal;
-        font-weight: 400;
-        src: local(''),
-         url('fonts/inconsolata-v20-latin-regular.woff2') format('woff2'),
-         url('fonts/inconsolata-v20-latin-regular.woff') format('woff');
-      }
-
-      @font-face {
-        font-family: 'Inconsolata';
-        font-style: normal;
-        font-weight: 800;
-        src: local(''),
-         url('fonts/inconsolata-v20-latin-800.woff2') format('woff2'),
-         url('fonts/inconsolata-v20-latin-800.woff') format('woff');
-      }
-
-      body {
-        margin: 0;
-        background-color: red;
-        font-family: 'Inconsolata', monospace;
-      }
-
-      header {
-        display: flex;
-        justify-content: space-between;
-        padding: 6px 20px;
-        position: fixed;
-        top: 0px;
-        left: 0px;
-        width: 100vw;
-      }
-
-      header a {
-        border-bottom: none;
-      }
-
-      #upload, #download, #share, #source {
-        cursor: pointer;
-      }
-
-      .receipt {
-        background-color: #fff;
-        padding: 30px;
-        max-width: 410px;
-        margin: 50px auto;
-        box-shadow: 0px 15px 23px rgba(0,0,0,0.5);
-      }
-
-      @media (max-width: 410px) {
-        .receipt {
-          margin: 10px;
-        }
-      }
-
-      input, textarea {
-        font-family: 'Inconsolata', monospace;
-        outline: none;
-        border: none;
-        width: 100%;
-        padding: 0;
-        resize: none;
-      }
-
-      .date {
-        font-size: 12px
-      }
-
-      .claim {
-        text-align: center;
-        margin: 30px 0px;
-        font-size: 24px;
-        font-weight: 800;
-      }
-
-      .tags {
-        text-align: center;
-      }
-
-      .table {
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-        padding: 10px 5px;
-        row-gap: 5px;
-      }
-
-      h2 {
-        font-size: 18px;
-        font-weight: 800;
-      }
-
-      a {
-        text-decoration: none;
-        border-bottom: #000 solid 1px;
-        color: #000;
-        cursor: pointer;
-      }
-
-      a.source { opacity: 0.5; }
-
-      hr {
-        border-style: dashed;
-      }
-
-      .qrcode {
-        padding-top: 20px;
-        display: flex;
-        justify-content: center;
-      }
-
-      .qrcode img {
-        opacity: 0.5;
-      }
-    </style>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="css/styles.css">
   </head>
   <body>
 
     <header>
-      <div>
-        <span id="upload" title="upload">▲</span>
-        <span id="download" title="download">▼</span>
-        <span id="share" title="share">ᐅ</span>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
-      <div>
-        <a href="https://github.com/nbriz/show-ur-receipts" target="_blank">&lt;src&gt;</a>
-      </div>
+      <nav>
+        <span id="upload" data-info="upload">data &lt;up&gt;load</span>
+        <span id="download" data-info="download">data &lt;down&gt;load</span>
+        <span id="share" data-info="share">data &lt;url&gt;share</span>
+        <a href="https://github.com/nbriz/show-ur-receipts" target="_blank">&lt;src&gt;code</a>
+        <br>
+        <span id="close-menu">&lt;⨯&gt;</span>
+      </nav>
     </header>
 
     <section class="receipt">
-      <input type="text" class="date" title="The date this receipt was created" value="">
-      <textarea class="claim" rows="1" title="Tell us what you know" placeholder="Did you know that..."></textarea>
+      <input type="text" class="date" data-info="The date this receipt was created" value="">
+      <textarea class="claim" rows="1" data-info="Tell us what you learned" placeholder="Did you know that..."></textarea>
       <hr>
-      <textarea class="tags" rows="1" placeholder="#, #, #, #, #, #, #" title="tags, comma or space separated list of search terms"></textarea>
+      <textarea class="tags" rows="1" placeholder="#, #, #, #, #, #, #" data-info="tags, comma or space separated list of search terms"></textarea>
       <hr>
-      <div class="table" title="What's your source? What's the title of the book, article, video, podcast, etc? Who wrote/created it? Where was it published/posted?">
-        <label>title</label>
-        <textarea class="title" rows="1" placeholder="UNTITLED"></textarea>
-        <label>author</label>
-        <textarea class="author" rows="1" placeholder="UNKNOWN"></textarea>
-        <label><span id="source">source</span></label>
-        <span><a class="source" target="_blank">UNPUBLISHED</a></span>
+      <div class="table">
+        <label data-info="What's the title of your source? (the book, article, video, podcast, etc)">title</label>
+        <textarea class="title" rows="1" placeholder="UNTITLED" data-info="What's the title of your source? (the book, article, video, podcast, etc)"></textarea>
+        <label data-info="Who wrote/created your source?">author</label>
+        <textarea class="author" rows="1" placeholder="UNKNOWN" data-info="Who wrote/created your source?"></textarea>
+        <label><span id="source" data-info=" Where was your source published/posted?">source</span></label>
+        <span><a class="source" target="_blank" data-info=" Where was your source published/posted?">UNPUBLISHED</a></span>
       </div>
       <hr>
-      <div title="Give us the gist, describe the main concepts or most important ideas from the source in relation to your research topic" >
+      <div data-info="Quick summary, describe the main concepts or most important ideas from the source in relation to your research topic" >
         <h2 name="tldr"></h2>
         <textarea class="tldr" rows="1" placeholder="TL;DR"></textarea>
       </div>
-      <div title="What did you learn? Why do we care? List most important ideas in relation to your reserach topic.">
+      <div data-info="What did you learn? Why do we care? List most important ideas in relation to your reserach topic.">
         <h2 name="reasons"></h2>
         <textarea class="reasons" rows="1" placeholder="b/c reasons"></textarea>
       </div>
-      <div title="Is this a quality source? What's their deal? When was this published? What kind of authority do they have? What do their peers think?">
+      <div data-info="Is this a quality source? Who are they? When was this published? What kind of authority do they have? What do their peers think?">
         <h2 name="verified"></h2>
         <textarea class="verified" rows="1" placeholder="verified?"></textarea>
       </div>
       <div class="qrcode"></div>
     </section>
 
+    <section id="info">
+      <span>i</span>
+      <span></span>
+    </section>
+
+    <section id="show-me">
+      <div>
+        <h1>Wow! That's a bold but interesting claim you've made! Please tell me more!</h1>
+        <p>Fill out the fields in the receipt to verify your source, then open the menu to either download or share (via URL) your receipt</p>
+        <button>OK!</button>
+      </div>
+    </section>
+
     <script src="js/qrcode.min.js"></script>
     <script src="js/base64.min.js"></script>
     <script src="js/autosize.js"></script>
     <script src="js/FileUploader.js"></script>
-    <script>
-
-      const qrcode = new QRCode(document.querySelector('.qrcode'), 'No source URL has been set.')
-      const uploader = new FileUploader({
-        types: ['application/json'],
-        click: '#upload',
-        ready: upload,
-        error: (err) => window.alert(err)
-      })
-
-      function setup () {
-        document.querySelector('.date').value = String(new Date())
-        const data = decodeURL()
-        if (data) {
-          putData(data)
-          autosize(document.querySelectorAll('textarea'))
-        } else {
-          const textareas = document.querySelectorAll('textarea')
-          textareas.forEach(t => { t.value = '' })
-        }
-      }
-
-      function addSource () {
-        const source = document.querySelector('.source')
-        const title = window.prompt('what\'s your source?')
-        const url = window.prompt('link or it didn\'t happen.')
-        if (url && url.indexOf('http') === 0) {
-          source.setAttribute('href', url)
-          source.textContent = title
-          document.querySelector('#source').style.borderBottom = 'none'
-          updateQRCode(url)
-        } else {
-          window.alert('that\'s not a URL, it\'s gotta start with http')
-        }
-        if (source.textContent === 'UNPUBLISHED') source.style.opacity = 0.5
-        else source.style.opacity = 1
-      }
-
-      function showSubTitles (name) {
-        const ta = document.querySelector(`.${name}`)
-        const h2 = document.querySelector(`[name="${name}"]`)
-        if (ta.value === '') h2.textContent = ''
-        else h2.textContent = ta.getAttribute('placeholder')
-      }
-
-      function updateQRCode (url) {
-        qrcode.clear()
-        qrcode.makeCode(url)
-        qrcode._el.querySelector('img').style.opacity = 1
-      }
-
-      function getData () {
-        const url = document.querySelector('.source').getAttribute('href')
-        const source = document.querySelector('.source').textContent
-        const data = { url, source }
-        const d = [ 'date', 'claim', 'tags', 'title', 'author', 'tldr', 'reasons', 'verified' ]
-        d.forEach(i => { data[i] = document.querySelector(`.${i}`).value })
-        if (data.tags.includes(',')) data.tags = data.tags.split(',').map(t => t.trim())
-        else data.tags = data.tags.split(' ')
-        return data
-      }
-
-      function putData (data) {
-        if (data.url) {
-          const source = document.querySelector('.source')
-          source.setAttribute('href', data.url)
-          source.style.opacity = 1
-        }
-        if (data.source) document.querySelector('.source').textContent = data.source
-        const d = [ 'date', 'claim', 'tags', 'title', 'author', 'source', 'tldr', 'reasons', 'verified' ]
-        d.forEach(i => { if (data[i]) document.querySelector(`.${i}`).value = data[i] })
-        updateQRCode(data.url)
-        if (data.source) document.querySelector('.source').textContent = data.source
-        if (data.tldr) showSubTitles('tldr')
-        if (data.reasons) showSubTitles('reasons')
-        if (data.verified) showSubTitles('verified')
-      }
-
-      function download () {
-        const text = JSON.stringify(getData(), null, 2)
-        // const b64 = window.btoa(text)
-        const b64 = Base64.encode(text)
-        const uri = `data:application/json;base64,${b64}`
-        const a = document.createElement('a')
-        const name = document.querySelector('.claim').value.replace(/ /g, '_')
-        a.setAttribute('download', `${name}.json`)
-        a.setAttribute('href', uri)
-        a.click()
-        a.remove()
-      }
-
-      function upload (file) {
-        const b64 = file.data.split('base64,')[1]
-        // const text = window.atob(b64)
-        const text = Base64.decode(b64)
-        const data = JSON.parse(text)
-        putData(data)
-        autosize(document.querySelectorAll('textarea'))
-      }
-
-      function encodeURL () {
-        const text = JSON.stringify(getData())
-        // const b64 = window.btoa(text)
-        const b64 = Base64.encode(text)
-        const uri = encodeURIComponent(b64)
-        window.location.hash = `#data,${uri}`
-        window.alert('The URL in your address bar has been updated to include your data. Copy+Paste to share it.')
-      }
-
-      function decodeURL () {
-        if (window.location.hash) {
-          const uri = window.location.hash.split('#data,')[1]
-          const b64 = decodeURIComponent(uri)
-          // const text = window.atob(b64)
-          const text = Base64.decode(b64)
-          const data = JSON.parse(text)
-          return data
-        }
-      }
-
-      window.addEventListener('load', setup)
-      document.querySelector('#source').addEventListener('click', addSource)
-      document.querySelector('#download').addEventListener('click', download)
-      document.querySelector('#share').addEventListener('click', encodeURL)
-
-      document.querySelector('.source').addEventListener('click', (e) => {
-        if (!e.target.getAttribute('href')) {
-          window.alert('Click on "source" to add your source\'s name and URL')
-        }
-      })
-
-      document.querySelectorAll('textarea').forEach((ta) => {
-        ta.addEventListener('input', (e) => {
-          e.target.value = e.target.value.replace(/\n/g, '')
-          autosize(e.target);
-        })
-      })
-
-      const verified = ['tldr', 'reasons', 'verified']
-      verified.forEach((c) => {
-        const ta = document.querySelector(`.${c}`)
-        ta.addEventListener('input', e => showSubTitles(e.target.className))
-      })
-
-    </script>
+    <script src="js/main.js"></script>
 
   </body>
 </html>
